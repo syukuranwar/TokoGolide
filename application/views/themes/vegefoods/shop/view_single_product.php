@@ -74,13 +74,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <option value="50">50%</option>
             <option value="70">70%</option>
             <option value="100">100%</option>
-
           </select>
-
         </button>
       </div>
 
-      <p calss="mt-4 ml-2 "><a   href="#" class="btn cart btn-black btn-sm mt-3 py-3 px-5 add-cart cart-btn" data-sku="<?php echo $product->sku; ?>"  data-name="<?php echo $product->name; ?>" data-price="<?php echo ($product->current_discount > 0) ? ($product->price - $product->current_discount) : $product->price; ?>" data-id="<?php echo $product->id; ?>">Add to Cart</a></p>
+      <p calss="mt-4 ml-2 "><a href="#" class="btn cart btn-black btn-sm mt-3 py-3 px-5 add-cart cart-btn" data-sku="<?php echo $product->sku; ?>"  data-name="<?php echo $product->name; ?>" data-price="<?php echo ($product->current_discount > 0) ? ($product->price - $product->current_discount) : $product->price; ?>" data-id="<?php echo $product->id; ?>">Add to Cart</a></p>
     </div>
   </div>
 </div>
@@ -102,95 +100,94 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="container">
     <div class="row">
       <?php if ( count($related_products) > 0) : ?>
-        <?php foreach ($related_products as $product) : ?>
-          <div class="col-md-6 col-lg-3 ftco-animate">
-            <div class="product">
-              <a href="#" class="img-prod"><img class="img-fluid" src="<?php echo base_url('assets/uploads/products/'. $product->picture_name); ?>" alt="<?php echo $product->name; ?>">
-                <?php if ($product->current_discount > 0) : ?>
-                  <span class="status"><?php echo count_percent_discount($product->current_discount, $product->price); ?>%</span>
-                <?php endif; ?>
-                <div class="overlay"></div>
-              </a>
-              <div class="text py-3 pb-4 px-3 text-center">
-                <h3><?php echo anchor('shop/product/'. $product->id .'/'. $product->sku .'/', $product->name);?></h3>
-                <div class="d-flex">
-                  <div class="pricing">
-                    <p class="price">
-                      <?php if ($product->current_discount > 0) : ?>
-                        <span class="mr-2 price-dc">Rp <?php echo format_rupiah($product->price); ?></span>
-                        <span class="price-sale">Rp <?php echo format_rupiah($product->price - $product->current_discount); ?></span></p>
-                        <?php else : ?>
-                          <span class="price-sale">Rp <?php echo format_rupiah($product->price); ?>
-                        <?php endif; ?>
-                      </div>
+      <?php foreach ($related_products as $product) : ?>
+        <div class="col-md-6 col-lg-3 ftco-animate">
+          <div class="product">
+            <a href="#" class="img-prod"><img class="img-fluid" src="<?php echo base_url('assets/uploads/products/'. $product->picture_name); ?>" alt="<?php echo $product->name; ?>">
+              <?php if ($product->current_discount > 0) : ?>
+                <span class="status"><?php echo count_percent_discount($product->current_discount, $product->price); ?>%</span>
+              <?php endif; ?>
+              <div class="overlay"></div>
+            </a>
+            <div class="text py-3 pb-4 px-3 text-center">
+              <h3><?php echo anchor('shop/product/'. $product->id .'/'. $product->sku .'/', $product->name);?></h3>
+              <div class="d-flex">
+                <div class="pricing">
+                  <p class="price">
+                    <?php if ($product->current_discount > 0) : ?>
+                      <span class="mr-2 price-dc">Rp <?php echo format_rupiah($product->price); ?></span>
+                      <span class="price-sale">Rp <?php echo format_rupiah($product->price - $product->current_discount); ?></span></p>
+                      <?php else : ?>
+                        <span class="price-sale">Rp <?php echo format_rupiah($product->price); ?>
+                      <?php endif; ?>
                     </div>
-                    <div class="bottom-area d-flex px-3">
-                      <div class="m-auto d-flex">
-                        <a href="<?php echo site_url('shop/product/'. $product->id .'/'. $product->sku .'/'); ?>" class="buy-now d-flex justify-content-center align-items-center text-center">
-                          <span><i class="ion-ios-menu"></i></span>
-                        </a>
-                        <a href="#" class="add-to-chart add-cart d-flex justify-content-center align-items-center mx-1" data-sku="<?php echo $product->sku; ?>" data-name="<?php echo $product->name; ?>" data-price="<?php echo ($product->current_discount > 0) ? ($product->price - $product->current_discount) : $product->price; ?>" data-id="<?php echo $product->id; ?>">
-                          <span><i class="ion-ios-cart"></i></span>
-                        </a>
-                      </div>
+                  </div>
+                  <div class="bottom-area d-flex px-3">
+                    <div class="m-auto d-flex">
+                      <a href="<?php echo site_url('shop/product/'. $product->id .'/'. $product->sku .'/'); ?>" class="buy-now d-flex justify-content-center align-items-center text-center">
+                        <span><i class="ion-ios-menu"></i></span>
+                      </a>
+                      <a href="#" class="add-to-chart add-cart d-flex justify-content-center align-items-center mx-1" data-sku="<?php echo $product->sku; ?>" data-name="<?php echo $product->name; ?>" data-price="<?php echo ($product->current_discount > 0) ? ($product->price - $product->current_discount) : $product->price; ?>" data-id="<?php echo $product->id; ?>">
+                        <span><i class="ion-ios-cart"></i></span>
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
-            <?php endforeach; ?>
-          <?php endif; ?>
+            </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
 
-        </div>
       </div>
-    </section>
+    </div>
+</section>
 
-    <script>
-        
-         function myFunction(){
-         // const preorderSelect = document.getElementById("pree");
-         //  const selectedPreorder =parseInt(preorderSelect.value);
-         //  const linkElement = document.getElementById("preorder");
-           var tes = parseInt($('#pree').val());
+  <script>
+      function myFunction(){
+        // const preorderSelect = document.getElementById("pree");
+        //  const selectedPreorder =parseInt(preorderSelect.value);
+        //  const linkElement = document.getElementById("preorder");
+          var tes = parseInt($('#pree').val());
 
-          // Menambahkan atribut "data-tes" pada elemen "a"
-          // linkElement.setAttribute("data-preorder", selectedPreorder);
-          $('.cart-btn').attr('data-preorder', tes);
+        // Menambahkan atribut "data-tes" pada elemen "a"
+        // linkElement.setAttribute("data-preorder", selectedPreorder);
+        $('.cart-btn').attr('data-preorder', tes);
 
-         }
-      $(document).ready(function(){
-      
-        myFunction()
-        var quantitiy=0;
-        $('.quantity-right-plus').click(function(e){
+        }
+    $(document).ready(function(){
+    
+      myFunction()
+      var quantitiy=0;
+      $('.quantity-right-plus').click(function(e){
 
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
+          // Stop acting like a button
+          e.preventDefault();
+          // Get the field name
+          var quantity = parseInt($('#quantity').val());
+          
+          // If is not undefined
 
-            $('#quantity').val(quantity + 1);
-            $('.cart-btn').attr('data-qty', quantity + 1);
+          $('#quantity').val(quantity + 1);
+          $('.cart-btn').attr('data-qty', quantity + 1);
 
-		            // Increment
+              // Increment
 
-              });
+            });
 
-        $('.quantity-left-minus').click(function(e){
-		        // Stop acting like a button
-		        e.preventDefault();
-		        // Get the field name
-		        var quantity = parseInt($('#quantity').val());
-		        
-		        // If is not undefined
+      $('.quantity-left-minus').click(function(e){
+          // Stop acting like a button
+          e.preventDefault();
+          // Get the field name
+          var quantity = parseInt($('#quantity').val());
+          
+          // If is not undefined
 
-		            // Increment
-		            if(quantity>0){
-                  $('#quantity').val(quantity - 1);
-                  $('.cart-btn').attr('data-qty', quantity - 1);
-                }
-              });
+              // Increment
+              if(quantity>0){
+                $('#quantity').val(quantity - 1);
+                $('.cart-btn').attr('data-qty', quantity - 1);
+              }
+            });
 
-      });
-    </script>
+    });
+  </script>

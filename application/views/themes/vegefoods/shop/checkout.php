@@ -41,23 +41,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <div class="cart-detail cart-total p-3 p-md-4">
                         <h3 class="billing-heading mb-4" style="color: #f3f3f3">Rincian Belanja</h3>
                         <p class="d-flex" style="color: #f3f3f3">
-                                  <span style="color: #f3f3f3">Subtotal</span>
-                                  <span style="color: #f3f3f3">Rp <?php echo format_rupiah($subtotal); ?></span>
-                              </p>
-                              <p class="d-flex">
-                                  <span style="color: #f3f3f3">Ongkos kirim</span>
-                                  <span style="color: #f3f3f3"><?php echo $ongkir; ?></span>
-                              </p>
-                              <p class="d-flex">
-                                  <span style="color: #f3f3f3">Kupon</span>
-                                  <span style="color: #f3f3f3"><?php echo $discount; ?></span>
-                              </p>
-                              <hr>
-                              <p class="d-flex total-price">
-                                  <span style="color: #f3f3f3">Total</span>
-                                  <span style="color: #f3f3f3">Rp <?php echo format_rupiah($total); ?></span>
-                              </p>
-                              </div>
+                            <span style="color: #f3f3f3">DP</span>
+                            <span style="color: #f3f3f3">Rp <?php echo format_rupiah($dp); ?></span>
+                        </p>
+                        <p class="d-flex">
+                            <span style="color: #f3f3f3">Ongkos kirim</span>
+                            <span style="color: #f3f3f3"><?php echo $ongkir; ?></span>
+                        </p>
+                        <p class="d-flex">
+                            <span style="color: #f3f3f3">Kupon</span>
+                            <span style="color: #f3f3f3"><?php echo $discount; ?></span>
+                        </p>
+                        <hr>
+                        <p class="d-flex total-price">
+                            <span style="color: #f3f3f3">Total</span>
+                            <span style="color: #f3f3f3">Rp <?php echo format_rupiah($dp); ?></span>
+                        </p>
+                    </div>
                 </div>
                 <div class="col-md-12">
                     <div class="cart-detail p-3 p-md-4">
@@ -70,14 +70,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="form-group">
+                                  <!-- <div class="form-group">
                                       <div class="col-md-12">
                                           <div class="radio">
                                              <label>
                                               <input type="radio" name="payment" class="mr-2" value="2" checked ><h9 style="color: #f3f3f3"> Bayar ditempat</h9></label>
                                           </div>
                                       </div>
-                                  </div>
+                                  </div> -->
                               </div>
 
                               <div class="form-group text-right" style="margin-top: 10px;">

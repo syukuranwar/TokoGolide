@@ -27,6 +27,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               <th>Produk</th>
                               <th>Harga</th>
                               <th>Kuantitas</th>
+                              <th>PreOrder</th>
                               <th>Sub Total</th>
                             </tr>
                           </thead>
@@ -45,8 +46,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                               
                               <td class="quantity">
                                   <div class="input-group mb-3" >
-                                   <input type="text" name="quantity[<?php echo $item['rowid']; ?>]" class="quantity form-control input-number" value="<?php echo $item['qty']; ?>" min="1" max="100">
-                                </div>
+                                  <input type="text" name="quantity[<?php echo $item['rowid']; ?>]" class="quantity form-control input-number" value="<?php echo $item['qty']; ?>" min="1" max="100">
+                              </div>
+
+                              <td class="preeorder">
+                                  <div class="input-group mb-3" >
+                                  <input type="text" name="preeOrder[<?php echo $item['rowid']; ?>]" class="preeOrder form-control input-number" value="<?php echo $item['preorder']; ?>" min="1" max="100">
+                              </div>
                             </td>
                               
                               <td class="total">Rp <?php echo format_rupiah($item['subtotal']); ?></td>
@@ -88,14 +94,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <?php endif; ?>
                       </p>
                       <p class="d-flex total-price">
-                          <span style="color: #f3f3f3"> DP 50%</span>
-                          <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo  ($item['qty'] * 140000)/2; ?></span>
+                          <span style="color: #f3f3f3"> DP <?php echo $percent_dp; ?>%</span>
+                          <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo format_rupiah($dp); ?></span>
+                      </p>
+                      <p class="d-flex total-price">
+                          <span style="color: #f3f3f3"> Sisa</span>
+                          <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo format_rupiah($total_price - $dp); ?></span>
                       </p>
                       <hr>
 
                       <p class="d-flex total-price">
                           <span style="color: #f3f3f3">Total</span>
-                          <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo format_rupiah($total_price); ?></span>
+                          <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo format_rupiah($dp); ?></span>
                       </p>
                   </div>
                   <p><button type="submit" class="btn btn-primary py-3 px-4" style="color: #f3f3f3">Checkout</button></p>

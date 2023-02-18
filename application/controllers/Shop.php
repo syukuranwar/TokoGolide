@@ -42,9 +42,16 @@ class Shop extends CI_Controller {
     {
         $cart['carts'] = $this->cart->contents();
         $cart['total_cart'] = $this->cart->total();
-
+        
         $ongkir = ($cart['total_cart'] >= get_settings('min_shop_to_free_shipping_cost')) ? 0 : get_settings('shipping_cost');
         $cart['total_price'] = $cart['total_cart'] + $ongkir;
+
+        // hitung dp
+        $newArray = $cart['carts'];
+        $getFirstArray = array_shift($newArray);
+        $cart['dp'] = $cart['total_cart'] * ($getFirstArray['preorder'] / 100);
+        $cart['percent_dp'] = $getFirstArray['preorder'];
+
         // $cart['preorder'] = $cart['preorder'];
 // print_r($cart['carts']);die();
         get_header('Keranjang Belanja');
@@ -63,6 +70,10 @@ class Shop extends CI_Controller {
 
             verify_session('customer');
         }
+
+        $dataCartAll = $this->cart->contents();
+        $getFirstArray = array_shift($dataCartAll);
+
         switch ($action)
         {
             default :
@@ -131,7 +142,7 @@ class Shop extends CI_Controller {
                     $items[$item['id']]['qty'] = $item['qty'];
                     $items[$item['id']]['price'] = $item['price'];
                 }
-                 
+
                 $subtotal = $this->cart->total();
                 $ongkir = (int) ($subtotal >= get_settings('min_shop_to_free_shipping_cost')) ? 0 : get_settings('shipping_cost');
 
@@ -140,6 +151,10 @@ class Shop extends CI_Controller {
                 $params['ongkir'] = ($ongkir > 0) ? 'Rp'. format_rupiah($ongkir) : 'Gratis';
                 $params['total'] = $subtotal + $ongkir - $discount;
                 $params['discount'] = $disc;
+                
+                $params['qty'] = $getFirstArray['qty'];
+                $params['preorder'] = $getFirstArray['preorder'];
+                $params['dp'] = $subtotal * ($getFirstArray['preorder']/100);
 
                 $this->session->set_userdata('order_quantity', $items);
                 $this->session->set_userdata('total_price', $params['total']);
@@ -173,7 +188,12 @@ class Shop extends CI_Controller {
                     'note' => $note
                 );
 
+                // print_r($dataCartAll);
+                // exit();
+
                 $delivery_data = json_encode($delivery_data);
+                $dp_value = $getFirstArray['subtotal'] * ($getFirstArray['preorder'] / 100);
+                $qty = $getFirstArray['qty'];
 
                 $order = array(
                     'user_id' => $user_id,
@@ -181,8 +201,9 @@ class Shop extends CI_Controller {
                     'order_number' => $order_number,
                     'order_status' => 1,
                     'order_date' => $order_date,
-                    'total_price' => $total_price,
-                    'total_items' => $total_items,
+                    'total_price' => $dp_value,
+                    'sisa_pembayaran' => $total_price - $dp_value,
+                    'total_items' => $qty,
                     'payment_method' => $payment,
                     'delivery_data' => $delivery_data
                 );
@@ -228,14 +249,19 @@ class Shop extends CI_Controller {
                 $sku = $this->input->post('sku');
                 $name = $this->input->post('name');
                 $price = $this->input->post('price');
-                
+                $preeorderNum = $this->input->post('preeorderNum');
+                if($preeorderNum == ""){
+                    $preeorderNum = 50;
+                }
+
                 $item = array(
                     'id' => $id,
                     'qty' => $qty,
                     'price' => $price,
                     'name' => $name,
-                    'preorder' => $preorder
+                    'preorder' => $preeorderNum
                 );
+
                 $this->cart->insert($item);
                 $total_item = count($this->cart->contents());
 

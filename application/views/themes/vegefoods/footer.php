@@ -127,10 +127,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     var id = $(this).data('id');
     var sku = $(this).data('sku');
-    var qty = $(this).data('qty');
+    // var qty = $(this).data('qty');
+    var qty = document.getElementById("quantity").value;
     qty = (qty > 0) ? qty : 1;
     var price = $(this).data('price');
     var name = $(this).data('name');
+    var preeorderNum = document.getElementById("pree").value;
 
     $.ajax({
       method: 'POST',
@@ -140,7 +142,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         sku: sku,
         qty: qty,
         price: price,
-        name: name
+        name: name,
+        preeorderNum: preeorderNum,
       },
       success: function (res) {
         if (res.code == 200) {
