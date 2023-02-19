@@ -54,11 +54,42 @@ class Orders extends CI_Controller
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 
         $orders['orders'] = $this->order->get_all_orders($config['per_page'], $page, $search);
+        // Sort the array by priority
+        $orders['orders'] = $this->dynamicPrioritySchedule($orders['orders']);
         $orders['pagination'] = $this->pagination->create_links();
 
         $this->load->view('header', $params);
         $this->load->view('orders/orders', $orders);
         $this->load->view('footer');
+    }
+
+    // Define a function to perform dynamic priority scheduling
+    function dynamicPrioritySchedule($payments) {
+        $now = time(); // Get the current timestamp
+        
+        // Sort the payments in descending order of percent_dp
+        usort($payments, function ($a, $b) {
+            return $b->percent_dp - $a->percent_dp;
+        });
+        
+        // Calculate the priority score for each payment based on its payment date and percent_dp
+        foreach ($payments as $payment) {
+            if ($payment->payment_date) {
+                $payment_date = strtotime($payment->payment_date);
+                $time_diff = $now - $payment_date;
+                $priority_score = $payment->percent_dp / max(1, ($time_diff / 86400)); // Divide by number of seconds in a day
+            } else {
+                $priority_score = $payment->percent_dp; // If payment date is not set, use percent_dp as priority score
+            }
+            $payment->priority_score = $priority_score;
+        }
+        
+        // Sort the payments in descending order of priority score
+        usort($payments, function ($a, $b) {
+            return $b->priority_score - $a->priority_score;
+        });
+        
+        return $payments;
     }
 
     public function view($id = 0)

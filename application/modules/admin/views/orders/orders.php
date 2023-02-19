@@ -40,9 +40,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
                   <tr>
                     <th scope="col">ID</th>
                     <th scope="col">Customer</th>
-                    <th scope="col">Tanggal</th>
+                    <th scope="col">Tanggal Pemesanan</th>
                     <th scope="col">Jumlah Item</th>
                     <th scope="col">Jumlah Harga</th>
+                    <th scope="col">Tanggal Bayar</th>
+                    <th scope="col">DP</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
@@ -61,6 +63,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                       </td>
                       <td>
                         Rp <?php echo format_rupiah($order->total_price); ?>
+                      </td>
+                      <td>
+                        <?php
+                          if($order->payment_date) {
+                            echo get_formatted_date($order->payment_date); 
+                          }else{
+                            echo "-";
+                          }
+                        ?>
+                      </td>
+                      <td>
+                        <?php echo $order->percent_dp; ?>%
                       </td>
                       <td><?php echo get_order_status($order->order_status, $order->payment_method); ?></td>
                     </tr>

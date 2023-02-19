@@ -35,9 +35,10 @@ class Order_model extends CI_Model
         //     LIMIT $start, $limit
         // ");
 
-        $this->db->select('o.id, o.order_number, o.order_date, o.order_status, o.payment_method, o.total_price, o.total_items, c.name AS coupon, cu.name AS customer')
+        $this->db->select('o.id, o.order_number, o.order_date, o.order_status, o.payment_method, o.total_price, o.total_items, o.percent_dp, c.name AS coupon, cu.name AS customer, pa.payment_date')
             ->join('coupons c', 'c.id = o.coupon_id', 'left')
             ->join('customers cu', 'cu.user_id = o.user_id', 'left')
+            ->join('payments pa', 'pa.order_id = o.id', 'left')
             ->order_by('o.order_date', 'DESC')
             ->limit($limit, $start);
 
