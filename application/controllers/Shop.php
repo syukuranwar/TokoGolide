@@ -188,9 +188,6 @@ class Shop extends CI_Controller {
                     'note' => $note
                 );
 
-                // print_r($dataCartAll);
-                // exit();
-
                 $delivery_data = json_encode($delivery_data);
                 $dp_value = $getFirstArray['subtotal'] * ($getFirstArray['preorder'] / 100);
                 $qty = $getFirstArray['qty'];
@@ -205,7 +202,8 @@ class Shop extends CI_Controller {
                     'sisa_pembayaran' => $total_price - $dp_value,
                     'total_items' => $qty,
                     'payment_method' => $payment,
-                    'delivery_data' => $delivery_data
+                    'delivery_data' => $delivery_data,
+                    'percent_dp' => $getFirstArray['preorder'],
                 );
 
                 $order = $this->product->create_order($order);
