@@ -5,7 +5,6 @@ class Admin extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-
         verify_session('admin');
 
         $this->load->model(array(
