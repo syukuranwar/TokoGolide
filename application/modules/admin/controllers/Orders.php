@@ -74,6 +74,7 @@ class Orders extends CI_Controller
         //     return strtotime($orders['orders'])
         // })
         // echo "<pre>";print_r($orders['orders']);die();
+        
         // Sort the array by priority
         $orders['orders'] = $this->dynamicPrioritySchedule($orders['orders']);
         $orders['pagination'] = $this->pagination->create_links();
@@ -91,15 +92,14 @@ class Orders extends CI_Controller
         usort($payments, function ($a, $b) {
             return $b->percent_dp - $a->percent_dp;
         });
-        
+
         // Calculate the priority score for each payment based on its payment date and percent_dp
         foreach ($payments as $payment) {
+            $priority_score = 0;
             if ($payment->payment_date) {
                 $payment_date = strtotime($payment->payment_date);
                 $time_diff = $now - $payment_date;
                 $priority_score = $payment->percent_dp / max(1, ($time_diff / 86400)); // Divide by number of seconds in a day
-            } else {
-                $priority_score = $payment->percent_dp; // If payment date is not set, use percent_dp as priority score
             }
             $payment->priority_score = $priority_score;
         }
@@ -108,7 +108,7 @@ class Orders extends CI_Controller
         usort($payments, function ($a, $b) {
             return $b->priority_score - $a->priority_score;
         });
-        
+
         return $payments;
     }
 
