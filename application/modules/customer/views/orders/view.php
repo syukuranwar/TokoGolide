@@ -41,8 +41,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
                                 <td><b><?php echo $data->total_items; ?></b></td>
                             </tr>
                             <tr>
-                                <td>Harga</td>
-                                <td><b>Rp <?php echo format_rupiah($data->total_price); ?></b></td>
+                                <td>Harga DP</td>
+                                <td><b> Rp <?php echo format_rupiah($data->total_price ); ?></b></td>
+
+
                             </tr>
                             <tr>
                                 <td>Metode pembayaran</td>

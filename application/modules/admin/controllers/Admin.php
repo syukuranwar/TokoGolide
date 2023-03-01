@@ -16,7 +16,7 @@ class Admin extends CI_Controller {
     }
 
     public function index()
-    {
+    { 
         $params['title'] = 'Admin '. get_store_name();
 
         $overview['total_products'] = $this->product->count_all_products();

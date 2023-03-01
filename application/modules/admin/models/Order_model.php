@@ -39,7 +39,7 @@ class Order_model extends CI_Model
             ->join('coupons c', 'c.id = o.coupon_id', 'left')
             ->join('customers cu', 'cu.user_id = o.user_id', 'left')
             ->join('payments pa', 'pa.order_id = o.id', 'left')
-            ->order_by('o.order_date', 'DESC')
+            ->order_by('pa.payment_date', 'desc')
             ->limit($limit, $start);
 
         if ( ! is_null($search)) {

@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                           <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo format_rupiah($dp); ?></span>
                       </p>
                       <p class="d-flex total-price">
-                          <span style="color: #f3f3f3"> Sisa</span>
+                          <span style="color: #f3f3f3"> Sisa Pembayaran</span>
                           <span class="n-total font-weight-bold" style="color: #f3f3f3">Rp <?php echo format_rupiah($total_price - $dp); ?></span>
                       </p>
                       <hr>

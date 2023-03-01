@@ -16,6 +16,7 @@ class Orders extends CI_Controller
 
     public function index()
     {
+
         $search = $this->input->get('search_query');
 
         if ($search) {
@@ -54,12 +55,31 @@ class Orders extends CI_Controller
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
 
         $orders['orders'] = $this->order->get_all_orders($config['per_page'], $page, $search);
+        $ordernew = array();
+        foreach ($orders['orders'] as $key) {
+
+            $ordernew[] = $key->percent_dp;
+        $dat = rsort($ordernew);
+ 
+        }
+        $data['data'] = $ordernew;
+        // usort($orders['orders'], function($a, $b) {
+    // Jika percent_dp sama dengan 100, maka diurutkan berdasarkan payment_date paling cepat'';''
+           // echo  "<pre>";print_r($dpnew['dpnew'] );
+// });
+
+        // die();
+        // usort($orders['orders'].function($a,$b){
+
+        //     return strtotime($orders['orders'])
+        // })
+        // echo "<pre>";print_r($orders['orders']);die();
         // Sort the array by priority
         $orders['orders'] = $this->dynamicPrioritySchedule($orders['orders']);
         $orders['pagination'] = $this->pagination->create_links();
 
         $this->load->view('header', $params);
-        $this->load->view('orders/orders', $orders);
+        $this->load->view('orders/orders', array_merge($orders, $data));
         $this->load->view('footer');
     }
 

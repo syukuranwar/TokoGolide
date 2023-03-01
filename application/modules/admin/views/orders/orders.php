@@ -44,12 +44,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
                     <th scope="col">Jumlah Item</th>
                     <th scope="col">Jumlah Harga</th>
                     <th scope="col">Tanggal Bayar</th>
+                    <th scope="col">Waktu Bayar</th>
                     <th scope="col">DP</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($orders as $order) : ?>
+                  <?php 
+                  // $ordernew = array();
+                  foreach ($orders as $order) :     
+                  // $ordernew[] = $order->percent_dp;
+                  // $dat = rsort($ordernew);
+ ?>
                     <tr>
                       <th scope="col">
                         <?php echo anchor('admin/orders/view/' . $order->id, '#' . $order->order_number); ?>
@@ -72,6 +78,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
                             echo "-";
                           }
                         ?>
+                      </td>
+                       <td>
+                        <?php echo $order->payment_date; ?>
                       </td>
                       <td>
                         <?php echo $order->percent_dp; ?>%
